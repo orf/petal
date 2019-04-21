@@ -1,4 +1,4 @@
-# Petal - Flask, for gRPC services.
+# :hibiscus: Petal - Flask, for gRPC services.
 
 Petal reduces the boilerplate required to write and maintain gRPC based services whilst ensuring your service 
 code is always in sync with your definitions. It aims to be a somewhat opinionated gRPC framework. 
