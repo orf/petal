@@ -12,7 +12,7 @@ else:
 
 setup(
     name='petal',
-    version='0.0.2-1',
+    version='0.0.2-2',
     packages=['petal'],
     url='https://github.com/orf/petal',
     license='MIT',
