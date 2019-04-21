@@ -25,7 +25,8 @@ def cli():
 @click.argument('module')
 @click.option('--bind', default='0.0.0.0:50051')
 @click.option('--shutdown-grace', default=10)
-def run(module, bind, shutdown_grace):
+@click.option('--threads', default=10, type=int)
+def run(module, bind, shutdown_grace, threads):
     sys.path.append(os.getcwd())
     module_object = importlib.import_module(module)
 
@@ -40,7 +41,7 @@ def run(module, bind, shutdown_grace):
         raise click.ClickException(str(e)) from e
 
     handler = app.create_service_handler()
-    server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
+    server = grpc.server(futures.ThreadPoolExecutor(max_workers=threads))
     server.add_generic_rpc_handlers((handler,))
     server.add_insecure_port(bind)
     server.start()
