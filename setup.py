@@ -15,7 +15,7 @@ setup(
         'grpcio',
         'grpcio-tools',
         'click',
-        'mypy-protobuf'
+        'mypy-protobuf',
     ],
     entry_points={
         'console_scripts': [

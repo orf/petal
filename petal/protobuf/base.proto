@@ -1,6 +1,6 @@
 syntax = "proto3";
 package petal.protobuf.base;
 
-message HelloRequest {
-  string name = 1;
+message Trace {
+  string trace_id = 1;
 }

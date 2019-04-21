@@ -8,20 +8,30 @@ service = Service(__name__)
 
 
 @service.grpc()
-def say_hello(request: HelloRequest) -> HelloReply:
-    pass
+def say_hello(request: HelloRequest, logger: int) -> HelloReply:
+    return HelloReply(message=f'Hello {request.name}')
 
 
 @service.grpc()
 def say_hello_stream(request: Iterable[HelloRequest]) -> HelloReply:
-    pass
+    names = [
+        r.name
+        for r in request
+    ]
+    return HelloReply(message=f'Hello {names}')
 
 
 @service.grpc()
 def say_hello_response_stream(request: HelloRequest) -> Iterable[HelloReply]:
-    pass
+    for i in range(4):
+        yield HelloReply(message=f'Hello {request.name} ({i})')
 
 
 @service.grpc()
 def say_hello_double_stream(request: Iterable[HelloRequest]) -> Iterable[HelloReply]:
-    pass
+    names = [
+        r.name
+        for r in request
+    ]
+    for i in range(4):
+        yield HelloReply(message=f'Hello {names} ({i})')

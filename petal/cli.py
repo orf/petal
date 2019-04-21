@@ -1,3 +1,6 @@
+import time
+from concurrent import futures
+
 import click
 import os
 from pathlib import Path
@@ -5,10 +8,12 @@ import importlib
 import sys
 import subprocess
 
+import grpc
 import pkg_resources
 
 from petal import Service
-from .exceptions import InitializationException
+from petal.log import logger
+from petal.exceptions import InitializationException
 
 
 @click.group()
@@ -18,7 +23,9 @@ def cli():
 
 @cli.command()
 @click.argument('module')
-def run(module):
+@click.option('--bind', default='0.0.0.0:50051')
+@click.option('--shutdown-grace', default=10)
+def run(module, bind, shutdown_grace):
     sys.path.append(os.getcwd())
     module_object = importlib.import_module(module)
 
@@ -30,8 +37,21 @@ def run(module):
     try:
         app.validate_service()
     except InitializationException as e:
-        raise click.ClickException(str(e))
+        raise click.ClickException(str(e)) from e
 
+    handler = app.create_service_handler()
+    server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
+    server.add_generic_rpc_handlers((handler,))
+    server.add_insecure_port(bind)
+    server.start()
+    logger.info(f'Started Petal. Listening on {bind}')
+    try:
+        while True:
+            time.sleep(60 * 60 * 24)
+    except KeyboardInterrupt:
+        logger.info(f'Stopping. Closing all connections after {shutdown_grace} seconds.')
+        server.stop(grace=10)
+        logger.info('Successfully stopped.')
 
 
 @cli.command()

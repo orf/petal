@@ -1,5 +1,7 @@
 from typing import Iterable, Any
 
+from grpc import StatusCode
+
 
 class InitializationException(Exception):
     pass
@@ -42,3 +44,70 @@ class IncorrectMethodArguments(InitializationException):
         return f'Method {self.method_name} has an incorrect {self.argument} \n' \
             f'Expected {self.expected}, found {self.given}.\n' \
             f'Please update your service definitions to ensure the types are correct.'
+
+
+class GRPCError(Exception):
+    code = None
+    details = ""
+
+    def __init__(self, details=None, code=None):
+        if code:
+            self.code = code
+        if details:
+            self.details = details
+
+
+class Cancelled(GRPCError):
+    code = StatusCode.CANCELLED
+
+
+class InvalidArgument(GRPCError):
+    code = StatusCode.INVALID_ARGUMENT
+
+
+class DeadlineExceeded(GRPCError):
+    code = StatusCode.DEADLINE_EXCEEDED
+
+
+class NotFound(GRPCError):
+    code = StatusCode.NOT_FOUND
+
+
+class AlreadyExists(GRPCError):
+    code = StatusCode.NOT_FOUND
+
+
+class PermissionDenied(GRPCError):
+    code = StatusCode.PERMISSION_DENIED
+
+
+class Unauthenticated(GRPCError):
+    code = StatusCode.UNAUTHENTICATED
+
+
+class ResourceExhausted(GRPCError):
+    code = StatusCode.RESOURCE_EXHAUSTED
+
+
+class FailedPrecondition(GRPCError):
+    code = StatusCode.FAILED_PRECONDITION
+
+
+class Aborted(GRPCError):
+    code = StatusCode.ABORTED
+
+
+class Unimplemented(GRPCError):
+    code = StatusCode.UNIMPLEMENTED
+
+
+class InternalError(GRPCError):
+    code = StatusCode.INTERNAL
+
+
+class Unavailable(GRPCError):
+    code = StatusCode.UNAVAILABLE
+
+
+class DataLoss(GRPCError):
+    code = StatusCode.DATA_LOSS
