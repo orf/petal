@@ -12,7 +12,6 @@ from google.protobuf import symbol_database as _symbol_database
 _sym_db = _symbol_database.Default()
 
 
-from petal.protobuf import base_pb2 as petal_dot_protobuf_dot_base__pb2
 
 
 DESCRIPTOR = _descriptor.FileDescriptor(
@@ -20,11 +19,41 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='example.protobuf.greeter',
   syntax='proto3',
   serialized_options=None,
-  serialized_pb=_b('\n\x1e\x65xample/protobuf/greeter.proto\x12\x18\x65xample.protobuf.greeter\x1a\x19petal/protobuf/base.proto\"\x1d\n\nHelloReply\x12\x0f\n\x07message\x18\x01 \x01(\t2\x8d\x03\n\x07Greeter\x12U\n\x08SayHello\x12!.petal.protobuf.base.HelloRequest\x1a$.example.protobuf.greeter.HelloReply\"\x00\x12]\n\x0eSayHelloStream\x12!.petal.protobuf.base.HelloRequest\x1a$.example.protobuf.greeter.HelloReply\"\x00(\x01\x12\x65\n\x16SayHelloResponseStream\x12!.petal.protobuf.base.HelloRequest\x1a$.example.protobuf.greeter.HelloReply\"\x00\x30\x01\x12\x65\n\x14SayHelloDoubleStream\x12!.petal.protobuf.base.HelloRequest\x1a$.example.protobuf.greeter.HelloReply\"\x00(\x01\x30\x01\x62\x06proto3')
-  ,
-  dependencies=[petal_dot_protobuf_dot_base__pb2.DESCRIPTOR,])
+  serialized_pb=_b('\n\x1e\x65xample/protobuf/greeter.proto\x12\x18\x65xample.protobuf.greeter\"\x1c\n\x0cHelloRequest\x12\x0c\n\x04name\x18\x01 \x01(\t\"\x1d\n\nHelloReply\x12\x0f\n\x07message\x18\x01 \x01(\t2\xc9\x01\n\x07Greeter\x12Z\n\x08SayHello\x12&.example.protobuf.greeter.HelloRequest\x1a$.example.protobuf.greeter.HelloReply\"\x00\x12\x62\n\x0eSayHelloStream\x12&.example.protobuf.greeter.HelloRequest\x1a$.example.protobuf.greeter.HelloReply\"\x00(\x01\x62\x06proto3')
+)
 
 
+
+
+_HELLOREQUEST = _descriptor.Descriptor(
+  name='HelloRequest',
+  full_name='example.protobuf.greeter.HelloRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='name', full_name='example.protobuf.greeter.HelloRequest.name', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=60,
+  serialized_end=88,
+)
 
 
 _HELLOREPLY = _descriptor.Descriptor(
@@ -53,12 +82,20 @@ _HELLOREPLY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=87,
-  serialized_end=116,
+  serialized_start=90,
+  serialized_end=119,
 )
 
+DESCRIPTOR.message_types_by_name['HelloRequest'] = _HELLOREQUEST
 DESCRIPTOR.message_types_by_name['HelloReply'] = _HELLOREPLY
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
+
+HelloRequest = _reflection.GeneratedProtocolMessageType('HelloRequest', (_message.Message,), dict(
+  DESCRIPTOR = _HELLOREQUEST,
+  __module__ = 'example.protobuf.greeter_pb2'
+  # @@protoc_insertion_point(class_scope:example.protobuf.greeter.HelloRequest)
+  ))
+_sym_db.RegisterMessage(HelloRequest)
 
 HelloReply = _reflection.GeneratedProtocolMessageType('HelloReply', (_message.Message,), dict(
   DESCRIPTOR = _HELLOREPLY,
@@ -75,15 +112,15 @@ _GREETER = _descriptor.ServiceDescriptor(
   file=DESCRIPTOR,
   index=0,
   serialized_options=None,
-  serialized_start=119,
-  serialized_end=516,
+  serialized_start=122,
+  serialized_end=323,
   methods=[
   _descriptor.MethodDescriptor(
     name='SayHello',
     full_name='example.protobuf.greeter.Greeter.SayHello',
     index=0,
     containing_service=None,
-    input_type=petal_dot_protobuf_dot_base__pb2._HELLOREQUEST,
+    input_type=_HELLOREQUEST,
     output_type=_HELLOREPLY,
     serialized_options=None,
   ),
@@ -92,25 +129,7 @@ _GREETER = _descriptor.ServiceDescriptor(
     full_name='example.protobuf.greeter.Greeter.SayHelloStream',
     index=1,
     containing_service=None,
-    input_type=petal_dot_protobuf_dot_base__pb2._HELLOREQUEST,
-    output_type=_HELLOREPLY,
-    serialized_options=None,
-  ),
-  _descriptor.MethodDescriptor(
-    name='SayHelloResponseStream',
-    full_name='example.protobuf.greeter.Greeter.SayHelloResponseStream',
-    index=2,
-    containing_service=None,
-    input_type=petal_dot_protobuf_dot_base__pb2._HELLOREQUEST,
-    output_type=_HELLOREPLY,
-    serialized_options=None,
-  ),
-  _descriptor.MethodDescriptor(
-    name='SayHelloDoubleStream',
-    full_name='example.protobuf.greeter.Greeter.SayHelloDoubleStream',
-    index=3,
-    containing_service=None,
-    input_type=petal_dot_protobuf_dot_base__pb2._HELLOREQUEST,
+    input_type=_HELLOREQUEST,
     output_type=_HELLOREPLY,
     serialized_options=None,
   ),
@@ -119,5 +138,5 @@ _sym_db.RegisterServiceDescriptor(_GREETER)
 
 DESCRIPTOR.services_by_name['Greeter'] = _GREETER
 
-STREAMING_INFO = {'Greeter': {'SayHello': {'client_streaming': False, 'server_streaming': False}, 'SayHelloStream': {'client_streaming': True, 'server_streaming': False}, 'SayHelloResponseStream': {'client_streaming': False, 'server_streaming': True}, 'SayHelloDoubleStream': {'client_streaming': True, 'server_streaming': True}}}
+STREAMING_INFO = {'Greeter': {'SayHello': {'client_streaming': False, 'server_streaming': False}, 'SayHelloStream': {'client_streaming': True, 'server_streaming': False}}}
 # @@protoc_insertion_point(module_scope)

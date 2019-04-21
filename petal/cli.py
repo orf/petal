@@ -71,6 +71,10 @@ def build(service_directory):
     includes = []
     for entry_point in pkg_resources.iter_entry_points('petal_include_protobuf'):
         entry_point = Path(entry_point.load().__file__)
+        if not entry_point.exists():
+            logger.warning(f'Registered include path {entry_point} does not exist')
+            continue
+
         includes.append(f'-I={entry_point.parent}')
 
     proto_files = [str(f.relative_to(service_directory.parent)) for f in proto_directory.glob('*.proto')]

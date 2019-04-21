@@ -2,7 +2,6 @@
 import grpc
 
 from example.protobuf import greeter_pb2 as example_dot_protobuf_dot_greeter__pb2
-from petal.protobuf import base_pb2 as petal_dot_protobuf_dot_base__pb2
 
 
 class GreeterStub(object):
@@ -17,22 +16,12 @@ class GreeterStub(object):
     """
     self.SayHello = channel.unary_unary(
         '/example.protobuf.greeter.Greeter/SayHello',
-        request_serializer=petal_dot_protobuf_dot_base__pb2.HelloRequest.SerializeToString,
+        request_serializer=example_dot_protobuf_dot_greeter__pb2.HelloRequest.SerializeToString,
         response_deserializer=example_dot_protobuf_dot_greeter__pb2.HelloReply.FromString,
         )
     self.SayHelloStream = channel.stream_unary(
         '/example.protobuf.greeter.Greeter/SayHelloStream',
-        request_serializer=petal_dot_protobuf_dot_base__pb2.HelloRequest.SerializeToString,
-        response_deserializer=example_dot_protobuf_dot_greeter__pb2.HelloReply.FromString,
-        )
-    self.SayHelloResponseStream = channel.unary_stream(
-        '/example.protobuf.greeter.Greeter/SayHelloResponseStream',
-        request_serializer=petal_dot_protobuf_dot_base__pb2.HelloRequest.SerializeToString,
-        response_deserializer=example_dot_protobuf_dot_greeter__pb2.HelloReply.FromString,
-        )
-    self.SayHelloDoubleStream = channel.stream_stream(
-        '/example.protobuf.greeter.Greeter/SayHelloDoubleStream',
-        request_serializer=petal_dot_protobuf_dot_base__pb2.HelloRequest.SerializeToString,
+        request_serializer=example_dot_protobuf_dot_greeter__pb2.HelloRequest.SerializeToString,
         response_deserializer=example_dot_protobuf_dot_greeter__pb2.HelloReply.FromString,
         )
 
@@ -55,41 +44,17 @@ class GreeterServicer(object):
     context.set_details('Method not implemented!')
     raise NotImplementedError('Method not implemented!')
 
-  def SayHelloResponseStream(self, request, context):
-    # missing associated documentation comment in .proto file
-    pass
-    context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-    context.set_details('Method not implemented!')
-    raise NotImplementedError('Method not implemented!')
-
-  def SayHelloDoubleStream(self, request_iterator, context):
-    # missing associated documentation comment in .proto file
-    pass
-    context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-    context.set_details('Method not implemented!')
-    raise NotImplementedError('Method not implemented!')
-
 
 def add_GreeterServicer_to_server(servicer, server):
   rpc_method_handlers = {
       'SayHello': grpc.unary_unary_rpc_method_handler(
           servicer.SayHello,
-          request_deserializer=petal_dot_protobuf_dot_base__pb2.HelloRequest.FromString,
+          request_deserializer=example_dot_protobuf_dot_greeter__pb2.HelloRequest.FromString,
           response_serializer=example_dot_protobuf_dot_greeter__pb2.HelloReply.SerializeToString,
       ),
       'SayHelloStream': grpc.stream_unary_rpc_method_handler(
           servicer.SayHelloStream,
-          request_deserializer=petal_dot_protobuf_dot_base__pb2.HelloRequest.FromString,
-          response_serializer=example_dot_protobuf_dot_greeter__pb2.HelloReply.SerializeToString,
-      ),
-      'SayHelloResponseStream': grpc.unary_stream_rpc_method_handler(
-          servicer.SayHelloResponseStream,
-          request_deserializer=petal_dot_protobuf_dot_base__pb2.HelloRequest.FromString,
-          response_serializer=example_dot_protobuf_dot_greeter__pb2.HelloReply.SerializeToString,
-      ),
-      'SayHelloDoubleStream': grpc.stream_stream_rpc_method_handler(
-          servicer.SayHelloDoubleStream,
-          request_deserializer=petal_dot_protobuf_dot_base__pb2.HelloRequest.FromString,
+          request_deserializer=example_dot_protobuf_dot_greeter__pb2.HelloRequest.FromString,
           response_serializer=example_dot_protobuf_dot_greeter__pb2.HelloReply.SerializeToString,
       ),
   }

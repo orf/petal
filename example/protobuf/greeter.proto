@@ -1,14 +1,15 @@
 syntax = "proto3";
-import "petal/protobuf/base.proto";
 package example.protobuf.greeter;
 
 // The greeting service definition.
 service Greeter {
   // Sends a greeting
-  rpc SayHello (petal.protobuf.base.HelloRequest) returns (HelloReply) {}
-  rpc SayHelloStream (stream petal.protobuf.base.HelloRequest) returns (HelloReply) {}
-  rpc SayHelloResponseStream (petal.protobuf.base.HelloRequest) returns (stream HelloReply) {}
-  rpc SayHelloDoubleStream (stream petal.protobuf.base.HelloRequest) returns (stream HelloReply) {}
+  rpc SayHello (HelloRequest) returns (HelloReply) {}
+  rpc SayHelloStream (stream HelloRequest) returns (HelloReply) {}
+}
+
+message HelloRequest {
+  string name = 1;
 }
 
 // The response message containing the greetings

@@ -21,9 +21,6 @@ setup(
         'console_scripts': [
             'petal = petal.cli:main',
             'protoc-gen-extract-streaming = petal.protoc_gen_extract_streaming:main'
-        ],
-        'petal_include_protobuf': [
-            'base = petal.protobuf'
         ]
     },
 )

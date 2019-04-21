@@ -6,7 +6,8 @@ from typing import Callable, List, get_type_hints, Type, NamedTuple, Dict, Itera
 from google.protobuf.message import Message
 
 from .grpc_services import load_all_grpc_services, GRPCMethod, GRPCService
-from .exceptions import MultipleServicesDefined, NoServicesDefined, AmbiguousMethod, IncorrectMethodArguments
+from .exceptions import MultipleServicesDefined, NoServicesDefined, AmbiguousMethod, IncorrectMethodArguments, \
+    AmbiguousGRPCMethod
 from . import log
 
 context = contextvars.ContextVar('petal.context')
@@ -126,6 +127,7 @@ class Service:
     def validate_service(self):
         service = load_grpc_service(self.package, self.service_name)
         method_name_mapping: Dict[str, GRPCMethod] = {method.name: method for method in service.methods}
+        found_methods = set()
 
         for method in self.rpc_methods:
             if method.name not in method_name_mapping:
@@ -144,3 +146,8 @@ class Service:
                 raise IncorrectMethodArguments(method.python_name, 'input', method.input, input_type)
             if method.output != output_type:
                 raise IncorrectMethodArguments(method.python_name, 'output', method.output, output_type)
+            found_methods.add(grpc_method)
+
+        missing_methods = set(service.methods) - found_methods
+        if missing_methods:
+            raise AmbiguousGRPCMethod(name=list(missing_methods)[0].name)

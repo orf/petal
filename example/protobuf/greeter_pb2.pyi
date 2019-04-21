@@ -14,6 +14,21 @@ from typing_extensions import (
 )
 
 
+class HelloRequest(google___protobuf___message___Message):
+    name = ... # type: typing___Text
+
+    def __init__(self,
+        name : typing___Optional[typing___Text] = None,
+        ) -> None: ...
+    @classmethod
+    def FromString(cls, s: bytes) -> HelloRequest: ...
+    def MergeFrom(self, other_msg: google___protobuf___message___Message) -> None: ...
+    def CopyFrom(self, other_msg: google___protobuf___message___Message) -> None: ...
+    if sys.version_info >= (3,):
+        def ClearField(self, field_name: typing_extensions___Literal[u"name"]) -> None: ...
+    else:
+        def ClearField(self, field_name: typing_extensions___Literal[b"name"]) -> None: ...
+
 class HelloReply(google___protobuf___message___Message):
     message = ... # type: typing___Text
 

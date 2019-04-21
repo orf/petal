@@ -1,6 +1,0 @@
-syntax = "proto3";
-package petal.protobuf.base;
-
-message Trace {
-  string trace_id = 1;
-}

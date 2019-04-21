@@ -33,6 +33,17 @@ class AmbiguousMethod(InitializationException):
             f'to define one.'
 
 
+class AmbiguousGRPCMethod(InitializationException):
+    def __init__(self, name: str):
+        self.name = name
+
+    def __str__(self):
+        return f'Cannot find a suitable method for GRPC method {self.name}\n' \
+            f'Please ensure one exists in your service code, or use service.grpc(name=NAME) ' \
+            f'to define one.'
+
+
+
 class IncorrectMethodArguments(InitializationException):
     def __init__(self, method_name: str, argument: str, given: Any, expected: Any):
         self.method_name = method_name
