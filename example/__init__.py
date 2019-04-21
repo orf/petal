@@ -8,7 +8,7 @@ service = Service(__name__)
 
 
 @service.grpc()
-def say_hello(request: HelloRequest, logger: int) -> HelloReply:
+def say_hello(request: HelloRequest) -> HelloReply:
     return HelloReply(message=f'Hello {request.name}')
 
 
